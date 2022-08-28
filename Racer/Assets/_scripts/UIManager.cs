@@ -10,7 +10,6 @@ public class UIManager : MonoBehaviour
     Text scoreText;
     [SerializeField]Text bestScoreText;
     [SerializeField]Text currentScoreText;
-    private static float _score=0;
     private static UIManager S;
     private void Awake()
     {
@@ -18,11 +17,6 @@ public class UIManager : MonoBehaviour
         speedText = GameObject.Find("SpeedText").GetComponent<Text>();
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
     }
-    private void Start()
-    {
-        _score = 0;
-    }
-
     public static void SaveSatistics() {
         float currentScore;
         if (S.scoreText.text.Contains("x")) currentScore = float.Parse(Regex.Replace(S.scoreText.text, "x2", ""));
@@ -33,7 +27,6 @@ public class UIManager : MonoBehaviour
         else PlayerPrefs.SetFloat("BestScore", currentScore);
         S.bestScoreText.text = PlayerPrefs.GetFloat("BestScore").ToString();
         S.currentScoreText.text = currentScore.ToString();
-        _score = 0;
     }
 
 

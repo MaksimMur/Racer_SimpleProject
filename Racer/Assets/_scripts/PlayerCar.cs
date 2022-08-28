@@ -15,14 +15,12 @@ public class PlayerCar : MonoBehaviour
     [SerializeField] float minDistanceYForAlign = 3;
     private static PlayerCar S;
     private float _currentSpeed = 0;
-    public static float  CURRENT_SPEED;
     public static float MIN_SPEED_TO_GAME_ACTIONS = 30F;
     private Rigidbody2D rigid;
     private Transform playerTr;
     private void Awake()
     {
         _currentSpeed = 0;
-        CURRENT_SPEED = 0;
         S = this;
         rigid = GetComponent<Rigidbody2D>();
         playerTr = GetComponent<Transform>();
@@ -56,7 +54,6 @@ public class PlayerCar : MonoBehaviour
     }
     private void LateUpdate()
     {
-        CURRENT_SPEED = _currentSpeed;
         if (align) {
             AlignCar();
             return;
@@ -122,6 +119,7 @@ public class PlayerCar : MonoBehaviour
         if (u >= 0.3f) { playerTr.rotation = Quaternion.Lerp(playerTr.rotation, Quaternion.identity, u-.3f);  }
         if (u >= 0.3f) playerTr.position = new Vector2(playerTr.position.x, Mathf.Lerp(playerTr.position.y, visiblePartCarY, u-.3f));
     }
-    public static float Max_Speed => PlayerCar.S.maxSpeed;
-    public static bool PosOnTheAheadPartOfRoad => PlayerCar.S.transform.position.x <= -2;
+    public static float CURRENT_SPEED => S._currentSpeed;
+    public static float Max_Speed => S.maxSpeed;
+    public static bool PosOnTheAheadPartOfRoad => S.transform.position.x <= -2;
 }
