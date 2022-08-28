@@ -25,17 +25,15 @@ public class UIManager : MonoBehaviour
 
     public static void SaveSatistics() {
         float currentScore;
-        if (S.scoreText.text.Contains("x")) currentScore = float.Parse(S.scoreText.text.Trim('x', '2'));
+        if (S.scoreText.text.Contains("x")) currentScore = float.Parse(Regex.Replace(S.scoreText.text, "x2", ""));
         else currentScore = float.Parse(S.scoreText.text);
         if (PlayerPrefs.HasKey("BestScore")) {
             if (PlayerPrefs.GetFloat("BestScore") < currentScore) PlayerPrefs.SetFloat("BestScore", currentScore);
-            
         }
         else PlayerPrefs.SetFloat("BestScore", currentScore);
         S.bestScoreText.text = PlayerPrefs.GetFloat("BestScore").ToString();
         S.currentScoreText.text = currentScore.ToString();
         _score = 0;
-
     }
 
 
